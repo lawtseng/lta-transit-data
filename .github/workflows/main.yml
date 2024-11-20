@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run script
-      run: python your_script.py
+      run: python retrieve_lta_data.py
 
     - name: Add and commit downloaded files
       run: |
