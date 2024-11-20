@@ -31,8 +31,8 @@ jobs:
 
     - name: Add and commit downloaded files
       run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config user.name "lawtseng"
+        git config user.email "law050193@gmail.com"
         git add .
         git commit -m "Add downloaded files from script"
 
