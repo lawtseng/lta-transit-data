@@ -2,18 +2,20 @@ name: Run Python Script Monthly
 
 on:
   schedule:
-    # Run at 10 PM UTC on the 20th of each month
-    - cron: '0 22 20 * *'
+    # Run at 10 PM CET on the 20th of each month
+    - cron: '0 21 20 * *' # Adjusted for CET (-1 hour to match UTC)
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
 
+    env:
+      TZ: Europe/Berlin  # Set timezone to CET
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
-        # This ensures you can push changes back
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Python
@@ -34,7 +36,8 @@ jobs:
         git config user.name "lawtseng"
         git config user.email "law050193@gmail.com"
         git add .
-        git commit -m "Add downloaded files from script"
+        git diff-index --quiet HEAD || git commit -m "Add downloaded files from script"
 
     - name: Push changes
       run: git push
+
