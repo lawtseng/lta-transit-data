@@ -7,4 +7,4 @@ The data types include:
 - Bus service, stop, and route data.
 - Train station point data.
 
-After registering an account key on the LTA website, users can start downloading data with the Jupyter Notebook, LTA_data.ipybh.
+After registering an account key on the LTA website, users can start downloading data with the Jupyter Notebook, LTA_data.ipynb.
