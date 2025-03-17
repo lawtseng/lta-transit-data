@@ -6,8 +6,6 @@ from dateutil.relativedelta import relativedelta
 import webbrowser
 
 
-# os.chdir('/Users/tinghsiang/Library/CloudStorage/GoogleDrive-tsengt@ethz.ch/My Drive/Research/Singapore_case')
-
 class LTADataMall:
 
     '''This class is used to set up the data source for LTA Data Mall API.
@@ -17,12 +15,12 @@ class LTADataMall:
         headers: the headers for the API request
     '''
 
-    def __init__(self):
+    def __init__(self, account_key):
         self._uri = 'http://datamall2.mytransport.sg/ltaodataservice/'  # Resource URL
         self._headers = {
-                        'AccountKey': 'ttJAKSuaQLS87zS5liEKIw==',
+                        'AccountKey': account_key,
                         'accept': 'application/json'
-                        }  # this is by default
+                        }  
         
     @property
     def uri(self):
@@ -83,7 +81,7 @@ class BusServiceData:
     def save_to_csv(self):
         '''Save the retrieved data to a CSV file.'''
         file_name = self.set_file_name()
-        with open('data/lta_data/{}.csv'.format(file_name), 'w') as csvfile:
+        with open('saved_data/{}.csv'.format(file_name), 'w') as csvfile:
             field_names = self.set_field_name()
             writer = csv.DictWriter(csvfile, fieldnames = field_names)
             writer.writeheader()
@@ -210,9 +208,10 @@ class DataCollector:
 
     '''This class is used to collect data from LTA Data Mall.'''
 
-    data_source = LTADataMall()
+    
 
-    def __init__(self):    
+    def __init__(self, account_key):    
+        self.data_source = LTADataMall(account_key)
         self._bus_data = BusServiceData(self.data_source)
 
     def set_time(self):
@@ -253,21 +252,8 @@ class DataCollector:
         self.get_pt_data('train_od', date = month)
 
 
-data_collector = DataCollector()
-data_collector.collect_transit_data()
 
-# # Download monthly bus datasets
-# data_collector = DataCollector()
-# data_collector.get_bus_data('service')
-# data_collector.get_bus_data('stop')
-# data_collector.get_bus_data('route')
 
-# # Download monthly public transit datasets
-# month = '202409'
-# data.get_pt_data('bus_node', date = month)
-# data.get_pt_data('bus_od', date = month)
-# data.get_pt_data('train_node', date = month)
-# data.get_pt_data('train_od', date = month)
 
-# Geospatial Whole Island
-# data.get_geospatial_data('train_station')
+
+
